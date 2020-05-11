@@ -5,13 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_layout.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
 
         val items : MutableList<Item> = mutableListOf<Item>()
+        val descriptions : MutableList<String> = mutableListOf<String>()
 
         val file = File(this.filesDir, "cart.txt")
         if (file.exists()) { file.bufferedReader().forEachLine {
@@ -38,11 +43,22 @@ class MainActivity : AppCompatActivity() {
 
         this.assets.open("products.txt").bufferedReader().forEachLine {
             val objects = it.split(", ")
-            items.add(Item(name = objects[0], price = objects[1].toInt(), url = objects[2]))
+            items.add(Item(name = objects[0], price = objects[1].toInt(), url = objects[2], description = objects[3]))
+            descriptions.add(objects[3])
         }
 
         val adapter = CustemAdapter(items)
         recyclerView.adapter =adapter
+    }
+
+    fun description(view: View){
+        val parent = view.rootView
+        val v = parent.findViewById<TextView>(R.id.descriptionTextView)
+        v.visibility = if (v.visibility == View.VISIBLE){
+            View.INVISIBLE
+        } else{
+            View.VISIBLE
+        }
     }
 
     fun itemClick(view: View){

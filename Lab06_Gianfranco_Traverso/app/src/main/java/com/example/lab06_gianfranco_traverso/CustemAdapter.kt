@@ -14,6 +14,8 @@ class CustemAdapter(val itemList: MutableList<Item>) : RecyclerView.Adapter<Cust
         val textViewName = itemView.findViewById(R.id.nameText) as TextView
         val textViewPrice = itemView.findViewById(R.id.priceText) as TextView
         val imageView = itemView.findViewById(R.id.imageView2) as ImageView
+        val description = itemView.findViewById(R.id.descriptionTextView) as TextView
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,8 +31,11 @@ class CustemAdapter(val itemList: MutableList<Item>) : RecyclerView.Adapter<Cust
         val item: Item = itemList[position]
 
         val url = item.url
+        holder.description.text = item.description
+
         Picasso.get().load(url).into(holder.imageView)
         holder.textViewName.text = item.name
         holder.textViewPrice.text = item.price.toString()
+
     }
 }

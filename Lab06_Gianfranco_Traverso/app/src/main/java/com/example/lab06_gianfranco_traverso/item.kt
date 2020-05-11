@@ -1,3 +1,5 @@
 package com.example.lab06_gianfranco_traverso
 
-data class Item(val name: String, val price: Int, val url: String )
+import android.accounts.AuthenticatorDescription
+
+data class Item(val name: String, val price: Int, val url: String, val description: String)
