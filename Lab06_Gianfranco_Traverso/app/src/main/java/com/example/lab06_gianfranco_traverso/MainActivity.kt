@@ -15,10 +15,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_dialog.view.*
 import kotlinx.android.synthetic.main.item_layout.*
 import java.io.File
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClickListener {
     var count = 0
     var sum = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +48,48 @@ class MainActivity : AppCompatActivity() {
             descriptions.add(objects[3])
         }
 
-        val adapter = CustemAdapter(items)
+        val adapter = CustemAdapter(items, this)
         recyclerView.adapter =adapter
+    }
+
+    override fun onItemClick(item: Item, position: Int) {
+        val dialog = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.item_dialog, null)
+        val price = item.price.toString()
+        val name = item.name
+        val number = dialogView.findViewById<EditText>(R.id.amountItemText)
+        dialogView.findViewById<TextView>(R.id.nameText).text = ("Nombre:    "+name)
+        dialogView.findViewById<TextView>(R.id.priceText).text = ("Precio:       $"+price)
+        dialog.setView(dialogView)
+        dialog.setCancelable(false)
+        dialog.setPositiveButton("Confirmar", { dialogInterface: DialogInterface?, which: Int ->  })
+        dialog.setNegativeButton("Cancelar", { dialogInterface: DialogInterface?, which: Int ->  })
+        val customDialog = dialog.create()
+        customDialog.show()
+        customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+            var amount = 0
+            if(number.text.toString() == ""){
+                amount = 1
+            }
+            else{
+                amount = number.text.toString().toInt()
+            }
+            sum += price.toInt()*amount
+            count += amount
+            itemsCountText.text = (count.toString()+" articulos")
+            totalPriceText.text = ("$"+sum.toString())
+
+            var file = File(this.filesDir, "cart.txt")
+            if (file.exists()){
+                file.appendText(name+", "+price+", "+amount.toString()+"\n")
+            }
+            else{
+                file.createNewFile()
+                file.appendText(name+", "+price+", "+amount.toString()+"\n")
+            }
+
+            customDialog.dismiss()
+        }
     }
 
     fun description(view: View){

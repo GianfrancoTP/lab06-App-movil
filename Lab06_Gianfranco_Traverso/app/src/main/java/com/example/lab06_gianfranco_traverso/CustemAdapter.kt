@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class CustemAdapter(val itemList: MutableList<Item>) : RecyclerView.Adapter<CustemAdapter.ViewHolder>(){
+class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemClickListener) : RecyclerView.Adapter<CustemAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val textViewName = itemView.findViewById(R.id.nameText) as TextView
@@ -16,6 +16,15 @@ class CustemAdapter(val itemList: MutableList<Item>) : RecyclerView.Adapter<Cust
         val imageView = itemView.findViewById(R.id.imageView2) as ImageView
         val description = itemView.findViewById(R.id.descriptionTextView) as TextView
 
+        fun initialize(item: Item, action:OnItemClickListener){
+            textViewName.text = item.name
+            textViewPrice.text = item.price.toString()
+            description.text = item.description
+
+            itemView.setOnClickListener{
+                action.onItemClick(item, adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,14 +37,20 @@ class CustemAdapter(val itemList: MutableList<Item>) : RecyclerView.Adapter<Cust
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: Item = itemList[position]
-
-        val url = item.url
-        holder.description.text = item.description
-
-        Picasso.get().load(url).into(holder.imageView)
-        holder.textViewName.text = item.name
-        holder.textViewPrice.text = item.price.toString()
+//        val item: Item = itemList[position]
+//
+//        val url = item.url
+//        holder.description.text = item.description
+//
+//        Picasso.get().load(url).into(holder.imageView)
+//        holder.textViewName.text = item.name
+//        holder.textViewPrice.text = item.price.toString()
+        holder.initialize(itemList.get(position), clickListener)
 
     }
 }
+
+interface OnItemClickListener{
+    fun onItemClick(item: Item, position: Int)
+}
+
