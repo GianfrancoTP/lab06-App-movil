@@ -20,7 +20,7 @@ class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemCl
         fun initialize(item: Item, action:OnItemClickListener){
             textViewName.text = item.name
             textViewPrice.text = item.price.toString()
-            description.text = item.description
+            description.text = ""
             Picasso.get().load(item.url).into(imageView)
 
             itemView.setOnClickListener{
@@ -29,11 +29,11 @@ class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemCl
 
             itemView.DescriptionButton.setOnClickListener {
                 val v = itemView.descriptionTextView
-                v.visibility = (if (v.visibility == View.VISIBLE){
-                    View.INVISIBLE
+                if (v.text == ""){
+                    v.text = item.description
                 } else{
-                    View.VISIBLE
-                })
+                    v.text = ""
+                }
             }
         }
     }

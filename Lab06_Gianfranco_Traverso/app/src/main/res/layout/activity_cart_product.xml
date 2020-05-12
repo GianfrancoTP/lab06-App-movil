@@ -19,7 +19,8 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="-1dp">
 
-            <TextView
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textStyle="bold"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/totalAmountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +42,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/totalPriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

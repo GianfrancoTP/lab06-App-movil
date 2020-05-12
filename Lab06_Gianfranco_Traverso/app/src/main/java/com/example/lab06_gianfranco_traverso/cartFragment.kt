@@ -50,7 +50,6 @@ class cartFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_cart_list, container, false)
-        val button = activity?.findViewById<ImageView>(R.id.editImageView)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -81,15 +80,8 @@ class cartFragment : Fragment() {
                     activity?.findViewById<TextView>(R.id.totalPriceTextView)?.text = ("$"+sum.toString())
                 }
                 adapter = MyProductRecyclerViewAdapter(products, listener)
-
             }
         }
-
-        if (button != null) {
-            button.setOnClickListener {
-            }
-        }
-
         return view
     }
 
