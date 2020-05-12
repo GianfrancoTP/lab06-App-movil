@@ -87,7 +87,6 @@ class cartFragment : Fragment() {
 
         if (button != null) {
             button.setOnClickListener {
-                Toast.makeText(this.activity, "On Destroy", Toast.LENGTH_LONG).show()
             }
         }
 

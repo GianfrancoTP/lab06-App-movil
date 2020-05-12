@@ -4,19 +4,16 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_dialog.view.*
 import kotlinx.android.synthetic.main.item_layout.*
+import kotlinx.android.synthetic.main.item_layout.view.*
 import java.io.File
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {
@@ -87,18 +84,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
                 file.createNewFile()
                 file.appendText(name+", "+price+", "+amount.toString()+"\n")
             }
-
             customDialog.dismiss()
-        }
-    }
-
-    fun description(view: View){
-        val parent = view.rootView
-        val v = parent.findViewById<TextView>(R.id.descriptionTextView)
-        v.visibility = if (v.visibility == View.VISIBLE){
-            View.INVISIBLE
-        } else{
-            View.VISIBLE
         }
     }
 
@@ -137,7 +123,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
                 file.createNewFile()
                 file.appendText(name+", "+price+", "+amount.toString()+"\n")
             }
-
             customDialog.dismiss()
         }
     }

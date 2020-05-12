@@ -1,11 +1,14 @@
 package com.example.lab06_gianfranco_traverso
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 
 
 import com.example.lab06_gianfranco_traverso.cartFragment.OnListFragmentInteractionListener
@@ -43,6 +46,14 @@ class MyProductRecyclerViewAdapter(
         val textViewPrice = mView.findViewById(R.id.priceText1) as TextView
         val textViewTotal = mView.findViewById(R.id.totalTextView) as TextView
         val textViewAmount = mView.findViewById(R.id.amountTextView) as TextView
+
+        fun initialize(item: Product, action:OnItemClickListener){
+
+            mView.editImageView.setOnClickListener {
+
+
+            }
+        }
     }
 }
 

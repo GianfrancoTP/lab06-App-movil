@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_layout.view.*
 
 class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemClickListener) : RecyclerView.Adapter<CustemAdapter.ViewHolder>(){
 
@@ -20,9 +21,19 @@ class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemCl
             textViewName.text = item.name
             textViewPrice.text = item.price.toString()
             description.text = item.description
+            Picasso.get().load(item.url).into(imageView)
 
             itemView.setOnClickListener{
                 action.onItemClick(item, adapterPosition)
+            }
+
+            itemView.DescriptionButton.setOnClickListener {
+                val v = itemView.descriptionTextView
+                v.visibility = (if (v.visibility == View.VISIBLE){
+                    View.INVISIBLE
+                } else{
+                    View.VISIBLE
+                })
             }
         }
     }
@@ -46,7 +57,6 @@ class CustemAdapter(val itemList: MutableList<Item>, var clickListener: OnItemCl
 //        holder.textViewName.text = item.name
 //        holder.textViewPrice.text = item.price.toString()
         holder.initialize(itemList.get(position), clickListener)
-
     }
 }
 
